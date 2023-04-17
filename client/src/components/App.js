@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
+import Header from "./Header";
+import Main from "./Main";
 
 function App() {
   // Code goes here!
+  return (
+    <>
+      <Header />
+      <Main />
+
+    </>
+  )
 }
 //This is the server
 //npm init -y
