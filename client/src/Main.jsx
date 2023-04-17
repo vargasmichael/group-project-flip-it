@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function Main() {
-  return (
-    <div>
-      <h1>Flippit</h1>
-    </div>
-  );
-}
+  const Ranks = [
+    "Ace",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "Jack",
+    "Queen",
+    "King",
+  ];
+  const Suits = ["Clubs", "Hearts", "Diamonds", "Spades"];
+  let Deck = [];
 
-const Ranks = ['Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King']
-const Suits = ['Clubs', 'Hearts', 'Diamonds', 'Spades']
-let Deck = []
-
-function App() {
   const [deck, setDeck] = useState([]);
   const [score, setScore] = useState(0);
   const [card1, setCard1] = useState(null);
@@ -51,10 +57,21 @@ function App() {
 
   return (
     <div>
+      <h1>Flippit</h1>
       <button onClick={handleDeal}>Deal</button>
       {card1 && <p>{`Card dealt: ${card1.name}`}</p>}
       <p>{`Score: ${score}`}</p>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Main} />
+      </Switch>
+    </Router>
   );
 }
 
