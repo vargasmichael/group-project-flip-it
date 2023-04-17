@@ -1,0 +1,12 @@
+Backend: Flask and SQLAlchemy
+Frontend:REACT.js
+
+Backend is storing information:
+    player cards
+    inplay cards
+    login information
+
+Frontend
+    display
+    logic
+        features: high-low, shuffling, etc
