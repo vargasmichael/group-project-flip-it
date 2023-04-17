@@ -3,24 +3,10 @@
 # flask db upgrade
 # python db/seed.py
 
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-# from sqlalchemy.orm import validates
-# from sqlalchemy.ext.associationproxy import association_proxy
+
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy_serializer import SerializerMixin
-
-metadata = MetaData(naming_convention={
-    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
-
-db = SQLAlchemy()
-
-# from config import db
-
-# More boilerplate! We need to import THE SAME bcrypt we created in app
-# from sqlalchemy.ext.hybrid import hybrid_property
-# from services import bcrypt,db
-#
+from config import db, bcrypt
 
 class In_Play(db.Model,SerializerMixin):
     __tablename__ = 'in_plays'
@@ -31,7 +17,6 @@ class In_Play(db.Model,SerializerMixin):
     
     game = db.relationship('Game', backref='in_plays')
     
-
 class Game(db.Model,SerializerMixin):
     __tablename__ = 'games'
     id = db.Column(db.Integer, primary_key=True)
@@ -55,7 +40,25 @@ class Player(db.Model,SerializerMixin):
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
 
-   
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError('Password hashes may not be viewed.')
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8')
+        )
+        self._password_hash = password_hash.decode('utf-8')
+    
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(
+            self._password_hash, password.encode('utf-8')
+        )
+
+    def __repr__(self):
+        return f'<User {self.username}>'
+    
 class Card(db.Model,SerializerMixin):
     __tablename__ = 'cards'
     serialize_rules = ()

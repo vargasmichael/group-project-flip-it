@@ -1,8 +1,8 @@
-"""create tables
+"""trying
 
-Revision ID: 20aceb77c96b
+Revision ID: 46c9a2ce5207
 Revises: 
-Create Date: 2023-04-17 13:31:23.778335
+Create Date: 2023-04-17 16:01:17.699104
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '20aceb77c96b'
+revision = '46c9a2ce5207'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,24 +38,24 @@ def upgrade():
     sa.Column('status', sa.Integer(), nullable=True),
     sa.Column('game_id', sa.Integer(), nullable=True),
     sa.Column('card_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
-    sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
+    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], name=op.f('fk_cards_card_id_cards')),
+    sa.ForeignKeyConstraint(['game_id'], ['games.id'], name=op.f('fk_cards_game_id_games')),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('in_plays',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('game_id', sa.Integer(), nullable=True),
     sa.Column('card_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
-    sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
+    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], name=op.f('fk_in_plays_card_id_cards')),
+    sa.ForeignKeyConstraint(['game_id'], ['games.id'], name=op.f('fk_in_plays_game_id_games')),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('pgts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('game_id', sa.Integer(), nullable=True),
     sa.Column('card_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], ),
-    sa.ForeignKeyConstraint(['game_id'], ['games.id'], ),
+    sa.ForeignKeyConstraint(['card_id'], ['cards.id'], name=op.f('fk_pgts_card_id_cards')),
+    sa.ForeignKeyConstraint(['game_id'], ['games.id'], name=op.f('fk_pgts_game_id_games')),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
