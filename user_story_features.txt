@@ -1,0 +1,49 @@
+features story of user VISIBLE features:
+
+after page load, user is directed to a user signup or login of email and username inputs, buttons
+
+taken to home page - this has game cards(?), navbar (?), user account info
+
+user clicks on box to enter game, game has mouseover of ‘enter’
+
+enter game
+
+prompt restates objective of the game with a link to a longer version of the rules
+
+game begins when all all present, prompt says “the dealer is dealing”
+
+cards will highlight or lift when clicked
+
+graphic: the deck is shuffled
+
+the cards are dealt, containers for the three down cards, three up cards, three cards in hand, in-play deck and the drawing-from deck
+
+prompt to click “Ready to Play?”
+
+prompt to the player clockwise of the dealer who asks dealer to Deal
+
+Player 1 plays a card by clicking the highlighted card in their Hand
+
+the played card posts to the In-Play Deck, face-up
+
+REUSE a prompt/warning tells user their card must be at or above the value of the played card
+
+continue
+
+when an Ace is dropped, the cards are picked-up by that user and added to their hand
+
+play moves clockwise to the next player
+
+when a seven is dropped, the next player receives a prompt that the a seven was dropped (they can click for help or click to continue)
+
+REUSED; a prompt/warning tells user their card must be below the value of a seven
+
+if a two is dropped, this “resets” the In-Play deck, a prompt tells them to drop their next card if nothing happens (after 60 seconds) and the same player drops their new card
+
+if a ten is dropped the next clockwise player has the In-Play deck posted to their deck
+
+when a player is down to two cards in their Hand, their 6-cards highlights and they can play those cards
+
+when a player plays down to their three face-down cards, those cards highlight
+
+when a player plays their last card, all players receive a “You Lose!” except the winner, who receives a “You Won!” overlay and the game ends

@@ -1,0 +1,87 @@
+features story of user UNSEEN features:
+
+Operation: click login button
+Function: handleClick()
+Operation: enter user info
+Function: input() text area ‘username', text area ‘password’
+Operation: click Enter Game button
+Function: handleClick()
+Operation: click Enter Table button
+navbar
+navbar button
+Function handleClick()
+Operation: click ‘Play!’ of game-objective button, click 'instructions; button
+Function: handleClick(), handleClick()
+Operation: on page load, prompt says “the dealer is dealing”
+Function: prompt, video of shuffling cards
+Operation: dealt cards will highlight or lift when clicked
+graphic: the deck is shuffled
+Function: show cards()
+Operation/Function:
+containers for the three down cards, three up cards, three cards in hand, in-play deck and the drawing-from deck
+Operation: prompt to click “Ready to Play?”
+Function: prompt(), handleClick()
+Operation:prompt to the player clockwise of the dealer who asks dealer to Deal
+Function: prompt(), handleClick()
+Operation:
+REUSE: Player plays a card by clicking the highlighted card in their Hand
+in Hand:
+def__init__(self):
+self.hand []
+def updateHand(self):
+self.hand = [self.suits, self.values]
+def getRandomCard(self):
+suit = randint(2,13)
+suit = self.hand[suit]
+while len(suit) == 0:
+suit = randint(2,13)
+suit = self.hand[suit]
+index = randint(0, (len(suits)-1), (len(values)-1))
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+REUSE: Function:
+removeCard(self, card):
+card in Hand is id == (suit) and card.rank.rank == (integer):
+self.Hand = False
+print(“Playing”, c.__str__()
+self.hand[card.suit.id].remove(card)
+self.updateHand()
+playCard() appends to In-Play deck
+appended card posts to the In-Play Deck, face-up
+REUSE a prompt/warning tells user their card must be at or above the value of the played card
+Function: prompt()
+Operation: if/else card is played
+Function: if/else cardPlayed()
+Operation: when an Ace is dropped, the cards are picked-up by that user and added to their hand
+Function: if/else
+when an Ace is dropped, the cards are picked-up by that user and added to their hand
+Function: if/else
+highlight card container
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+play moves clockwise to the next player
+when a seven is dropped, the next player receives a prompt that the a seven was dropped (they can click for help or click to continue)
+Function: prompt(), if/else
+highlight card container
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+REUSED; a prompt/warning tells user their card must be below the value of a seven
+if a two is dropped, this “resets” the In-Play deck, a prompt tells them to drop their next card if nothing happens (after 60 seconds) and the same player drops their new card
+Function: prompt(), if/else
+highlight card container
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+if a ten is dropped the next clockwise player has the In-Play deck posted to their deck
+Function: prompt(), player.append(In-Play)
+Operation: when a player is down to two cards in their Hand, their 6-cards highlights and they can play those cards
+Function: if/else
+highlight card container
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+Operation: when a player plays down to their three face-down cards, those cards highlight
+Function: if/else
+highlight card container
+REUSE: HIGHLIGHT:
+highlightCard(), handleClick(), post(In-Play)
+Operation: when a player plays their last card, all players receive a “You Lose!” except the winner, who receives a “You Won!” overlay and the game ends
+prompt(), prompt()
