@@ -15,7 +15,7 @@ metadata = MetaData(naming_convention={
 
 db = SQLAlchemy()
 
-# from config import db
+
 
 # More boilerplate! We need to import THE SAME bcrypt we created in app
 # from sqlalchemy.ext.hybrid import hybrid_property
