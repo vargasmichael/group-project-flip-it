@@ -1,5 +1,5 @@
 # flask db init
-#flask db revision --autogenerate -m'message'
+# flask db revision --autogenerate -m'message'
 # flask db upgrade
 # python db/seed.py
 
@@ -67,4 +67,4 @@ class Card(db.Model,SerializerMixin):
     suits = db.Column(db.String)
     status = db.Column(db.Integer)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
+    player_id = db.Column(db.Integer, db.ForeignKey('players.id'))
