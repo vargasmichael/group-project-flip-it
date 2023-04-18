@@ -21,47 +21,37 @@ db = SQLAlchemy()
 # from sqlalchemy.ext.hybrid import hybrid_property
 # from services import bcrypt,db
 #
-
-class In_Play(db.Model,SerializerMixin):
-    __tablename__ = 'in_plays'
-    serialize_rules = ()
-    id = db.Column(db.Integer, primary_key=True)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
-    
-    game = db.relationship('Game', backref='in_plays')
-    
-
-class Game(db.Model,SerializerMixin):
-    __tablename__ = 'games'
-    id = db.Column(db.Integer, primary_key=True)
-    code = db.Column(db.Integer)
-
-class PGT(db.Model,SerializerMixin):
-    __tablename__ = 'pgts'
-    serialize_rules = ()
-    id = db.Column(db.Integer, primary_key=True)
-    game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
-
 class Player(db.Model,SerializerMixin):
     __tablename__ = 'players'
     serialize_rules = ()
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     _password_hash = db.Column(db.String)
-    # we need to create a _password_hash = db.Column(db.String)
+    total_wins = db.Column(db.Integer)
+    total_games = db.Column(db.Integer)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    
+class Game(db.Model,SerializerMixin):
+    __tablename__ = 'games'
+    id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.Integer, db.ForeignKey('players.id'))
+    tile_id = db.Column(db.Integer, db.ForeignKey('tiles.id'))
 
-   
-class Card(db.Model,SerializerMixin):
-    __tablename__ = 'cards'
+class Tile(db.Model,SerializerMixin):
+    __tablename__ = 'tiles'
     serialize_rules = ()
     id = db.Column(db.Integer, primary_key=True)
-    values = db.Column(db.Integer)
-    suits = db.Column(db.String)
-    status = db.Column(db.Integer)
+    image = db.Column(db.Url)
+
+
+class hall_of_fame(db.Model,SerializerMixin):
+    __tablename__ = 'hall_of_fames'
+    serialize_rules = ()
+    id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
     card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
+
+
+   
