@@ -1,0 +1,14 @@
+.table {
+    background-color: green;
+    font: 9px;
+    border-collapse: collapse;
+    border: 5px solid black;
+    padding: 8px;
+}
+
+.body {
+    
+}
+
+/* th, td {
+} */

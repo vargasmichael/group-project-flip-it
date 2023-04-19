@@ -1,5 +1,5 @@
 # flask db init
-#flask db revision --autogenerate -m'message'
+# flask db revision --autogenerate -m'message'
 # flask db upgrade
 # python db/seed.py
 
