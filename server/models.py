@@ -5,13 +5,17 @@
 
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-# from sqlalchemy.orm import validates
-# from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy import MetaData
 
 metadata = MetaData(naming_convention={
+    "ix": "ix_%(column_0_label)s",
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_`%(constraint_name)s`",
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-})
+    "pk": "pk_%(table_name)s"
+    })
 
 db = SQLAlchemy()
 
@@ -27,31 +31,40 @@ class Player(db.Model,SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     _password_hash = db.Column(db.String)
+    player_image = db.Column(db.String)
     total_wins = db.Column(db.Integer)
     total_games = db.Column(db.Integer)
 
-    created_at = db.Column(db.DateTime, server_default=db.func.now())
-    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+    serialize_rules = ('-password_hash',)
+    
     
 class Game(db.Model,SerializerMixin):
     __tablename__ = 'games'
     id = db.Column(db.Integer, primary_key=True)
-    player_id = db.Column(db.Integer, db.ForeignKey('players.id'))
-    tile_id = db.Column(db.Integer, db.ForeignKey('tiles.id'))
+    playerA = db.Column(db.Integer, db.ForeignKey('players.id'))
+    playerB = db.Column(db.Integer, db.ForeignKey('players.id'))
+    ended = db.Column(db.Boolean)
+  
+    # players = db.relationship('Player', backref='game')
+    
+    
+    
+    serialize_rules = ('-password_hash', '-total_wins', '-total_games')    
 
 class Tile(db.Model,SerializerMixin):
     __tablename__ = 'tiles'
     serialize_rules = ()
     id = db.Column(db.Integer, primary_key=True)
-    image = db.Column(db.Url)
+    image = db.Column(db.String)
+    
 
-
-class hall_of_fame(db.Model,SerializerMixin):
-    __tablename__ = 'hall_of_fames'
-    serialize_rules = ()
+class Game_tile(db.Model, SerializerMixin):
+    __tablename__ = 'game_tiles'
     id = db.Column(db.Integer, primary_key=True)
     game_id = db.Column(db.Integer, db.ForeignKey('games.id'))
-    card_id = db.Column(db.Integer, db.ForeignKey('cards.id'))
+    tile_id = db.Column(db.Integer, db.ForeignKey('tiles.id'))
 
-
+    games = db.relationship('Game', backref='game_tile')
+    tiles = db.relationship('Tile', backref='game_tile')
    
+    serialize_rules = ('-password_hash', '-player_image', '-total_wins', '-total_games')
