@@ -7,32 +7,41 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from sqlalchemy.exc import IntegrityError
+from flask_restful import Resource
 
-# from config import app, api
+from config import app, api, db
 from models import db, Player, Game, Tile, Game_tile
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.json.compact = False
 
 CORS(app)
 migrate = Migrate(app, db)
 
 db.init_app(app)
 
-api = Api(app)
+# api = Api(app)
 
 class Signup(Resource):
     def post(self):
         print('starting')
         request_json = request.get_json()
+        # new_user = Player(username = jsoned_request["username"], user_type = jsoned_request["user_type"])
+        # new_user.password_hash = jsoned_request["password"]
+        # new_user.player_image = jsoned_request["player_image"]
+
+        # db.session.add(new_user)
+        # db.session.commit()
 
         username = request_json.get("username")
         password = request_json.get('password')
+        player_image = request_json.get('player_image')
         
         player = Player(
-            username = username
+            username = username,
+            player_image=player_image
         )
 
         player.password_hash = password
@@ -80,6 +89,7 @@ class Login(Resource):
 
         player = Player.query.filter(Player.username == username).first()
 
+        print(request_json)
         if player:
             if player.authenticate(password):
                 print("authenticat")
@@ -177,11 +187,11 @@ api.add_resource(All_Tiles, '/tiles')
 
 class Player_by_id(Resource):
     def get(self, id):
-game = Game.query.filter(Game.id == session["game_id"]).first()
-playerA = Player.query.filter(Player.id == game.playerA).first()
-playerB = Player.query.filter(Player.id == game.playerB).first()
+        game = Game.query.filter(Game.id == session["game_id"]).first()
+        playerA = Player.query.filter(Player.id == game.playerA).first()
+        playerB = Player.query.filter(Player.id == game.playerB).first()
 
 # a way to get both players and the game
-
+# api.add_resource(Player_by_id, '/players/<int:id>')
 if __name__ == '__main__':
     app.run(debug=True)
