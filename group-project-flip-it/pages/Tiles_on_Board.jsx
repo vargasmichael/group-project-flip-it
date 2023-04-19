@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import "./Tiles_on_Board.css";
+import styles from "../styles/tiles_on_board.module.css";
 import Each_tile from "./Each_tile";
 
 function Tiles_on_Board() {
@@ -69,7 +69,7 @@ function Tiles_on_Board() {
     }
   };
   return (
-    <div>
+    <div className={styles.tiles_on_board}>
       <div className="tile-container">
         {/* maps through the array of tiles and returns a div for each tile, the key is the id of the tile, the className is the tile-open or tile-closed class, the onClick is the flipTile function, the ternary operator checks if the tile is flipped, if it is, it returns the image, if not, it returns portion of the floral design */}
         {gameTiles.map((tile) => (
