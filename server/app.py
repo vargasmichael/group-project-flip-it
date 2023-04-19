@@ -8,10 +8,11 @@ from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from sqlalchemy.exc import IntegrityError
 
-# from config import app, api
+from config import app, api, db, migrate
 from models import db, Player, Game, Tile, Game_tile
 
 app = Flask(__name__)
+app.secret_key = b'Y\xf1Xz\x00\xad|eQ\x80t \xca\x1a\x10K'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
@@ -120,12 +121,13 @@ class All_Players(Resource):
             }
             player_list.append(new_player)
         return make_response(jsonify(player_list), 200)
-    
+    # works
     
     def post(self):
         data = request.get_json()
         new_player = Player(
             username = data['username'],
+            _password_hash = data['_password_hash'],
             player_image = data['player_image'],
             total_wins = data['total_wins'],
             total_games = data['total_games']
@@ -133,6 +135,7 @@ class All_Players(Resource):
         db.session.add(new_player)
         db.session.commit()
         return make_response(new_player.to_dict(), 201)
+    # works
     
 api.add_resource(All_Players, '/players')
 
@@ -144,7 +147,7 @@ class Player_By_Id(Resource):
         if not player:
             return make_response(jsonify({'error': 'Player not found'}), 404)
         response = make_response(player.to_dict(), 200)
-        return response
+    # works
     
     def delete(self, id):
         player = Player.query.filter_by(id=id).first()
@@ -153,7 +156,13 @@ class Player_By_Id(Resource):
         db.session.delete(player)
         db.session.commit()
         return make_response(jsonify({'message': 'Boy Bye!'}), 200)
-    
+    # works
+
+class Player_by_id(Resource):
+    def get(self, id):
+        game = Game.query.filter(Game.id == session["game_id"]).first()
+        playerA = Player.query.filter(Player.id == game.playerA).first()
+        playerB = Player.query.filter(Player.id == game.playerB).first()
     
 api.add_resource(Player_By_Id, '/players/<int:id>')
 
@@ -171,15 +180,11 @@ class All_Tiles(Resource):
             }
             tile_list.append(new_tile)
         return make_response(jsonify(tile_list), 200)
+    # works
     
 api.add_resource(All_Tiles, '/tiles')
 
 
-class Player_by_id(Resource):
-    def get(self, id):
-game = Game.query.filter(Game.id == session["game_id"]).first()
-playerA = Player.query.filter(Player.id == game.playerA).first()
-playerB = Player.query.filter(Player.id == game.playerB).first()
 
 # a way to get both players and the game
 
