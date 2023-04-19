@@ -1,0 +1,130 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #282828;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.game-tile {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    background: black;
+    margin: 5px;
+    transition: all .2s;
+    text-align: center;
+    background: url('https: //assets.codepen.io/1607614/floral-pattern-1603073_960_720.png') fixed center center no-repeat;
+    color: darkslategray;
+    font-size: 2em;
+    font-weight: 900;
+    line-height: 75px;
+    vertical-align: top;
+}
+
+.game-tile:after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: transform 0.2s;
+    background-color: #900;
+}
+
+.game-tile:hover:after {
+    background-color: #b00;
+}
+
+.game-tile_open:after {
+    transition: transform 0.2s;
+    transform: translateX(-105%);
+}
+
+.game-tile .fa {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-size: 70px;
+    font-size: 10vmin;
+    line-height: 100px;
+    line-height: 16vmin;
+}
+
+.game-tile_closed {
+    cursor: normal;
+    opacity: 0.3;
+    transition: opacity 0.5s;
+    background-color: #00c;
+}
+
+#overlay-win {
+    position: absolute;
+    top: 15vmin;
+    left: 0;
+    height: 50vmin;
+    width: 100%;
+    text-align: center;
+    background-color: #b00;
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#overlay-win.open {
+    opacity: 0.9;
+    transition: opacity 0.4s;
+    pointer-events: auto;
+}
+
+#overlay-win h2 {
+    font-size: 15vmin;
+    line-height: 15vmin;
+    margin: 5vmin 0px;
+    color: #112;
+    font-family: 'Roboto', sans-serif;
+}
+
+#replay {
+    font-size: 7vmin;
+    display: inline-block;
+    border-radius: 1vmin;
+    padding: 2vmin 4vmin;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    background-color: #112;
+    color: #b00;
+}
+
+#replay:hover {
+    color: #e00;
+}
