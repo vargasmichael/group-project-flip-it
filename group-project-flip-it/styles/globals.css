@@ -148,18 +148,16 @@ html {
   background-color: #202020;
 }
 
-#game-board {}
-
-.row {
-  position: relative;
-  width: auto;
-  height: auto;
-  background-color: #282828;
-  /* opacity: .4; */
-  /* padding: 1px; */
-  margin: 5px;
+#game-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
 }
 
+.row {
+  margin: 0;
+}
 .game-tile {
   /* position: absolute; */
   display: inline-block;
