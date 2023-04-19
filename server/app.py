@@ -7,8 +7,8 @@ from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api
-from models import In_Play, Game, PGT, Player, Card
-
+# from models import In_Play, Game, PGT, Player, Card
+from models import Player, Game, Tile, hall_of_fame
 
 
 class Signup(Resource):
